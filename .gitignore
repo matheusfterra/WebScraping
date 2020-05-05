@@ -1,0 +1,8 @@
+/[Ll]ib/
+/[Ss]cripts/
+__pycache__ 
+pyvenv.cfg
+/[Ee]tc/
+/[Ss]hare/
+/.idea/
+chromedriver.exe

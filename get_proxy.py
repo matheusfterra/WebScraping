@@ -72,7 +72,7 @@ def scrape_website(url):
 
 
 
-url = 'https://intoli.com/blog/making-chrome-headless-undetectable/chrome-headless-test.html'
-working_proxies = check_proxies()
-while(1):
-    scrape_website(url)
+# url = 'https://intoli.com/blog/making-chrome-headless-undetectable/chrome-headless-test.html'
+# working_proxies = check_proxies()
+# while(1):
+#     scrape_website(url)

@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup as soup
 import requests
-from proxy_requests import ProxyRequests
+import time
+from random import randint
 
 def get_proxies():
     proxy_web_site = 'https://free-proxy-list.net/'
@@ -28,7 +29,6 @@ def get_proxies():
 def check_proxies():
     working_proxies = set()
     proxies = get_proxies()
-    print(len(proxies))
     test_url = 'https://httpbin.org/ip'
 
     for i in proxies:
@@ -45,7 +45,34 @@ def check_proxies():
 
     return working_proxies
 
+
+def scrape_website(url):
+    global working_proxies
+    print("Início de acesso ao site!")
+    for prox in list(working_proxies):
+
+        try:
+            html_code = requests.get(url, proxies={"http": "http://{}".format(prox), "https": "https://{}".format(prox)}).text
+            page_soup = soup(html_code, "html.parser")
+            print(page_soup)
+
+            ''' add a module here to target specific data points from the website
+          and record it '''
+
+            time.sleep(randint(3, 6))
+
+        except:
+
+            working_proxies.remove(prox)
+            print("{} proxy removed from the list".format(prox))
+
+            # update proxy list if you run out of proxies
+            if len(working_proxies) < 3:
+                working_proxies = check_proxies()
+
+
+
+url = 'https://intoli.com/blog/making-chrome-headless-undetectable/chrome-headless-test.html'
 working_proxies = check_proxies()
-
-
-
+while(1):
+    scrape_website(url)
